@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>裁切区域核对</title>
+<style>
+  body{margin:0;background:#F6F1E7;font:13px/1.5 "PingFang SC",sans-serif;color:#4A3A2A;padding:14px}
+  h2{font-size:16px;margin:18px 0 8px;padding-left:9px;border-left:5px solid #5FA845}
+  .row{display:flex;flex-wrap:wrap;gap:10px}
+  .cell{background:#fff;border-radius:12px;padding:6px;text-align:center}
+  .cell svg{display:block;border-radius:8px}
+  .lb{font-size:11px;font-weight:700;margin-top:3px}
+  .big{width:150px;height:150px}
+  .cut{width:150px;height:150px;background:#8FD35C}
+</style>
+</head>
+<body>
+<h2>① 完整角色 + 裁切框</h2>
+<div class="row" id="r1"></div>
+<h2>② 各裁切区域单独渲染</h2>
+<div class="row" id="r2"></div>
+<script src="characters.js?v=4"></script>
+<script>
+var h1='', h2='';
+['cat','duck','squirrel','croc','eleph'].forEach(function(k){
+  var c=CH[k];
+  var reg=c.regions;
+  // ① 完整图 + 彩色框
+  var boxes='';
+  Object.keys(reg).forEach(function(rn){
+    var b=reg[rn];
+    var col={head:'#e11',small:'#e91',side:'#19e',tail:'#1e9'}[rn]||'#888';
+    boxes+='<rect x="'+b[0]+'" y="'+b[1]+'" width="'+b[2]+'" height="'+b[3]+'" fill="none" stroke="'+col+'" stroke-width="'+Math.max(3,c.nat[0]*0.008)+'"/>';
+  });
+  h1+='<div class="cell"><svg viewBox="0 0 '+c.nat[0]+' '+c.nat[1]+'" class="big">'+CH.imgTag(k,0,0,c.nat[0],c.nat[1])+boxes+'</svg><div class="lb">'+c.name+'</div></div>';
+  // ② 各区域
+  ['head','small','side','tail'].forEach(function(rn){
+    var b=reg[rn];
+    if(!b) return;
+    var vb=[b[0],b[1],b[2],b[3]];
+    var sc=150/Math.max(b[2],b[3]);
+    h2+='<div class="cell"><svg viewBox="'+vb.join(' ')+'" class="cut">'+
+        '<rect x="'+vb[0]+'" y="'+vb[1]+'" width="'+vb[2]+'" height="'+vb[3]+'" fill="none" stroke="#e11" stroke-width="'+Math.max(2,b[2]*0.02)+'"/>'+
+        CH.imgTag(k,0,0,c.nat[0],c.nat[1])+'</svg><div class="lb">'+c.name+' · '+rn+'</div></div>';
+  });
+});
+document.getElementById('r1').innerHTML=h1;
+document.getElementById('r2').innerHTML=h2;
+</script>
+</body>
+</html>

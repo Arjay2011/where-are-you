@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#BFEAF8">
+<title>小猫躲猫猫</title>
+<link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+<div id="app">
+  <svg id="scene" viewBox="0 0 520 1040" preserveAspectRatio="xMidYMid meet" aria-label="户外草地场景">
+    <g id="l-far"></g>
+    <g id="l-mid"></g>
+    <g id="l-chars"></g>
+    <g id="l-covers"></g>
+    <g id="l-fore"></g>
+    <g id="l-hit"></g>
+    <g id="l-cat"></g>
+  </svg>
+  <!-- HUD -->
+  <div id="hud">
+    <button class="hud-btn" id="btnHudHome" aria-label="回到首页">⌂</button>
+    <div class="hud-targets" id="hudTargets"></div>
+    <button class="hud-btn" id="btnHudTip" aria-label="怎么玩">?</button>
+  </div>
+  <div id="hudCountBar"><span id="hudCount">还剩 1 个</span></div>
+
+  <!-- 首页 -->
+  <section class="layer on" id="scr-home">
+    <h1 class="logo">小猫躲猫猫</h1>
+    <p class="sub">小猫要来找小伙伴啦！</p>
+    <svg class="cat-hero" id="catHero" viewBox="0 0 100 120"></svg>
+    <p class="tip">选数字 → 记住要找的朋友 → 数到 10 → 点一点露出来的身体！</p>
+    <p class="diff-title">这次要找几个？</p>
+    <div class="diff-grid" id="diffGrid">
+      <button class="diff" data-n="1"><span class="n">1</span><span class="ic" data-ic="duck"></span><span class="l">找 1 个</span></button>
+      <button class="diff" data-n="2"><span class="n">2</span><span class="ic" data-ic="duck squirrel"></span><span class="l">找 2 个</span></button>
+      <button class="diff" data-n="3"><span class="n">3</span><span class="ic" data-ic="duck squirrel croc"></span><span class="l">找 3 个</span></button>
+      <button class="diff" data-n="4"><span class="n">4</span><span class="ic" data-ic="duck squirrel croc eleph"></span><span class="l">找 4 个</span></button>
+    </div>
+  </section>
+
+  <!-- 目标展示 -->
+  <section class="layer" id="scr-preview">
+    <h2 class="prev-title">🎯 要找它们</h2>
+    <p class="prev-sub" id="prevSub"></p>
+    <div class="targets" id="targetCards"></div>
+    <button class="big-btn" id="btnStart">开始！</button>
+  </section>
+
+  <!-- 数数 -->
+  <section class="layer" id="scr-count">
+    <div id="countNum">1</div>
+    <div class="count-dots" id="countDots"></div>
+    <button class="skip" id="btnSkip">跳过</button>
+  </section>
+
+  <!-- 胜利 -->
+  <section class="layer" id="scr-win">
+    <h2 class="big">全部找到啦！</h2>
+    <div class="row" id="winCards"></div>
+    <div class="btn-row">
+      <button class="small-btn" id="btnAgain">再玩一次</button>
+      <button class="small-btn alt" id="btnHome">换个难度</button>
+    </div>
+  </section>
+
+  <div id="fx"></div>
+  <div id="toast"></div>
+</div>
+
+<script src="characters.js?v=13"></script>
+<script src="game.js?v=12"></script>
+</body>
+</html>
